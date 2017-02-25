@@ -40,7 +40,7 @@ var customer = new function() {
 
 
 	var startSocket = function(){
-		var socket = io.connect('http://localhost:5000');
+		var socket = io.connect(location.host);
     	socket.on('message', function (data) {
 	        console.log(data);
 	        if(data.message.destination=="BOOKING_"+bookingid){

@@ -171,7 +171,7 @@ $.get("/api/trips/waiting", function(data){
 
 		window.onload= function(){
 
-		var socket = io.connect('http://localhost:5000');
+		var socket = io.connect(location.host);
     	socket.on('message', function (data) {
 	       
     		if(typeof(data)=="string"){
