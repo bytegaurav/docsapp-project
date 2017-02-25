@@ -1,8 +1,157 @@
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.wrapper{
+	width: 100%;
+}
+.row{
+	width: 100%;
+	position: relative;
+	margin: 0 auto;
+
+
+}
+.row .col{
+	display: inline-block;
+	box-sizing:border-box;
+	float:left;
+	
+
+}
+.row .col:last-of-type{
+	float: right;
+}
+
+.w33{
+	width: 33%;
+	box-sizing:border-box;
+
+	
+}
+.w50{
+	width: 50%;
+}
+
+
+.header{
+	width: 100%;
+	height: 100px;
+
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+}
+.header h1{	
+	position: relative;
+
+	display: inline-block;
+	float:left;
+	line-height: 100px;
+
+	padding: 0;
+	padding-left: 30px;
+	margin: 0;
+}
+
+.header h3{
+	position: relative;
+	float:right;
+	padding: 0;
+	margin: 0;
+		padding-right: 30px;
+
+	line-height: 100px;
+	display: inline-block;
+}
+
+.content{
+	width: 100%;
+}
+
+.clear{
+	clear:both;
+}
+
+
+/* Driver page specific styles */
+
+.content .head{
+	background: #555;
+	color:#fff;
+
+}
+
+.content .head .col{
+	text-align:center;
+	padding:10px;
+	font-weight: 800;
+	border-right:1px solid #999;
+}
+.content .body .col{
+border-right:1px solid #999;
+padding:10px;
+}
+
+
+.content .head .col:last-of-type
+.content .body .col:last-of-type{
+	border-right: none;
+
+}
+#driverstatus .body>.col{
+	min-height: 500px;
+	background: #efefef;
+}
+#driverstatus .item{
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+	padding:10px;
+	width: 90%;
+	margin: 0 auto;
+	background: #fff;
+	text-align: center;
+}
+#driverstatus .item a{
+	font-size: 1.2em;
+}
+#driverstatus .item .col{
+	border:none;
+
+}
+
+
+
+
+.right{
+	text-align:right;
+}
+
+/*Customer Styles*/
+
+#customer{
+	text-align: center;
+}
+#customer input[type="text"]{
+	padding:10px;
+	max-width: 300px;
+	margin: 10px auto;
+	display: block;
+	width: 300px;
+
+}
+
+#customer a{
+	display: block;
+	background: #555;
+	color:#fff;
+	margin: 0 auto;
+	max-width: 280px;
+	padding: 10px;
+	text-decoration: none;
+	text-transform: uppercase;
 }

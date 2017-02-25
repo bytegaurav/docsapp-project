@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Customer App</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+	<!-- page wrapper starts -->
+<div class="wrapper">
+
+	<!-- headerstarts -->
+	<div class="header">
+		<h1>Customer App</h1>
+		<div class="clear"></div>
+	</div>
+
+	<!-- Header ends -->
+
+
+	<!-- content starts -->
+	<div class="content">
+		<div class="form" id="customer">
+			<input type="text" placeholder="Customer ID" id="field"/>
+			<a href="javascript:void(0)" class="btn" id="send">Ride Now</a>
+		</div>
+
+		<div class="notif" id="content">
+			You are on ride with {{driverId}}
+
+		</div>
+
+	</div>	
+	<!-- Content ends -->
+	
+</div>
+
+	<!-- page wrapper ends -->
+	<script type="text/javascript" src="/javascripts/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript" src="/javascripts/socket.io.min.js"></script>
+	
+
+	<script type="text/javascript">
+	window.onload = function() {
+
+    var messages = [];
+    var socket = io.connect('http://localhost:3000');
+    var field = document.getElementById("field");
+    var sendButton = document.getElementById("send");
+    var content = document.getElementById("content");
+
+    socket.on('message', function (data) {
+        if(data.message) {
+            messages.push(data.message);
+            var html = '';
+            for(var i=0; i<messages.length; i++) {
+                html += messages[i] + '<br />';
+            }
+            content.innerHTML = html;
+        } else {
+            console.log("There is a problem:", data);
+        }
+    });
+
+    sendButton.onclick = function() {
+        var text = field.value;
+        socket.emit('send', { message: text });
+    };
+
+}
+	</script>
+
+</body>
+</html>
