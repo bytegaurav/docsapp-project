@@ -136,7 +136,7 @@ padding:10px;
 #customer{
 	text-align: center;
 }
-#customer input[type="text"]{
+#customer input[type="email"]{
 	padding:10px;
 	max-width: 300px;
 	margin: 10px auto;
@@ -145,7 +145,7 @@ padding:10px;
 
 }
 
-#customer a{
+#customer input[type="submit"] {
 	display: block;
 	background: #555;
 	color:#fff;
@@ -154,4 +154,7 @@ padding:10px;
 	padding: 10px;
 	text-decoration: none;
 	text-transform: uppercase;
+}
+.waiting, .done{
+	display: none;
 }

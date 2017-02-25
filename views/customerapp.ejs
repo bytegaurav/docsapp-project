@@ -18,13 +18,19 @@
 
 	<!-- content starts -->
 	<div class="content">
-		<div class="form" id="customer">
-			<input type="text" placeholder="Customer ID" id="field"/>
-			<a href="javascript:void(0)" class="btn" id="send">Ride Now</a>
+		<div class="form booking" id="customer">
+			<form action="#" method="post">
+			<input type="email" placeholder="Customer ID" id="email" required/>
+			<input type="submit"  class="btn"  value="Ride Now" id="ride"/>
+		</form>
 		</div>
 
-		<div class="notif" id="content">
-			You are on ride with {{driverId}}
+		<div class="waiting">
+
+			Searching for drivers in your area....
+		</div>
+		<div class="done" id="content">
+			You are on ride with <span></span>
 
 		</div>
 
@@ -39,34 +45,37 @@
 <script type="text/javascript" src="/javascripts/socket.io.min.js"></script>
 	
 
+<script type="text/javascript" src="/javascripts/customer.js"></script>
+	
 	<script type="text/javascript">
-	window.onload = function() {
+	customer.init();
+	
+// window.onload = function() {
 
-    var messages = [];
-    var socket = io.connect('http://localhost:3000');
-    var field = document.getElementById("field");
-    var sendButton = document.getElementById("send");
-    var content = document.getElementById("content");
+//     var messages = [];
+//     var socket = io.connect('http://localhost:3000');
+//     var field = document.getElementById("field");
+//     var sendButton = document.getElementById("send");
+//     var content = document.getElementById("content");
 
-    socket.on('message', function (data) {
-        if(data.message) {
-            messages.push(data.message);
-            var html = '';
-            for(var i=0; i<messages.length; i++) {
-                html += messages[i] + '<br />';
-            }
-            content.innerHTML = html;
-        } else {
-            console.log("There is a problem:", data);
-        }
-    });
+//     socket.on('message', function (data) {
+//         if(data.message) {
+//             messages.push(data.message);
+//             var html = '';
+//             for(var i=0; i<messages.length; i++) {
+//                 html += messages[i] + '<br />';
+//             }
+//             content.innerHTML = html;
+//         } else {
+//             console.log("There is a problem:", data);
+//         }
+//     });
 
-    sendButton.onclick = function() {
-        var text = field.value;
-        socket.emit('send', { message: text });
-    };
+//     sendButton.onclick = function() {
+//         var text = field.value;
+//         socket.emit('send', { message: text });
+//     };
 
-}
 	</script>
 
 </body>

@@ -10,7 +10,7 @@
 	<!-- headerstarts -->
 	<div class="header">
 		<h1>Driver App</h1>
-		<h3>Driver ID 2</h3>
+		<h3>Driver ID <%= driverid %></h3>
 		<div class="clear"></div>
 	</div>
 
@@ -26,36 +26,27 @@
 
 		<div class="row head">
 			<div class="col w33">
-			one
+				Waiting
+
 			</div>
 			<div class="col w33">
-				two
+				In Progress
 			</div>
 			<div class="col w33">
-				three
+				Completed
 			</div>
 			<div class="clear"></div>
 
 		</div>
 		<div class="row body">
-			<div class="col w33">
-				<div class="item">
-					<div class="row">
-						<div class="col w50">Req ID : 43</div>
-						<div class="col w50">Cust ID :33 </div>
-						<div class="clear"></div>
-						
-					</div>
-					<p>16 min ago</p>
-					<a href="javascript:void(0)">Select</a>
-				</div>
+			<div class="col w33" id="waiting">
+				
 
 			</div>
-			<div class="col w33">
-				two
+			<div class="col w33" id="inprogress">
 			</div>
-			<div class="col w33">
-				three
+			<div class="col w33" id="completed">
+				
 			</div>
 			<div class="clear"></div>
 
@@ -75,11 +66,29 @@
 
 </div>
 	<!-- Content ends -->
-	
+<input type="hidden" value="<%= driverid %>" id="driverid"/>
 </div>
+	<script type="text/template" id="itemtmpl">
+	<div class="item">
+					<div class="row">
+						<div class="col w50">Req ID : {{bookingid}}</div>
+						<div class="col w50">Cust ID : {{customerid}} </div>
+						<div class="clear"></div>
+						
+					</div>
+					<p>{{timeago}}</p>
+					<a href="javascript:void(0)" data-bookingid="{{bookingid}}" data-customerid={{customerid}}>Select</a>
+				</div>
+	</script>
 
 	<!-- page wrapper ends -->
+<script type="text/javascript" src="/javascripts/jquery-3.1.1.min.js"></script>
 
+<script type="text/javascript" src="/javascripts/socket.io.min.js"></script>
+	
+
+<script type="text/javascript" src="/javascripts/timeago.js"></script>
+<script type="text/javascript" src="/javascripts/drivers.js"></script>
 
 </body>
 </html>

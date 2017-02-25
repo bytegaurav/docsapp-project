@@ -1,13 +1,13 @@
 //in memory queue
 
-var RequestQueue = new function (argument) {
-	var Queue = new Object();
+
+module.exports = function () {
+    var Queue = {};
+    return {
+        get: function (key) { return Queue[key]; },
+        set: function (key, val) { Queue[key] = val; },
+        delete: function(key){ delete Queue[key]}
+    }
+}();
 
 
-
-	this.changeStatus = function(id, status){
-		
-		
-	}
-
-}

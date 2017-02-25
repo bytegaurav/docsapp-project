@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/driverapp', function(req, res, next) {
-  res.render('driverapp');
+router.get('/driverapp/:driverid', function(req, res, next) {
+  res.render('driverapp', {driverid: req.params["driverid"]});
 });
 
 
