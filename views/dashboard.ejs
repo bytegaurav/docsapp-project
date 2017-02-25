@@ -91,15 +91,33 @@
 				html="";
 				for(var i in data){
 					var cpy = tmpl;
-
+					var starttime=data[i].starttime;
+					var waittime=0, triptime=0;
 					for(var key in data[i]){
 						cpy = cpy.replace(new RegExp("{{"+key+"}}", "g"), data[i][key]);
 
-					}				
-					waittime = Math.abs(data[i].requesttime- data[i].starttime);
-					triptime = Math.abs(data[i].endtime- data[i].starttime);
+					}		
+					if(starttime==0){
+						starttime = (new Date()).getTime();
+						waittime = Math.abs(data[i].requesttime-starttime);
+						triptime=0;
 
+					}else{
+						waittime = Math.abs(data[i].requesttime-data[i].starttime);
+						var endtime = (new Date()).getTime();
+						if(data[i].endtime==0){
+
+							triptime = Math.abs(endtime- data[i].starttime);
+						}else{
+							triptime = Math.abs(data[i].endtime- data[i].starttime);
+						}
+
+						
+					}	
+
+					
 					waittime = Math.floor(waittime/1000);
+					
 					triptime = Math.floor(	triptime/1000);
 					var waitmin =0;
 					if(waittime>60){
