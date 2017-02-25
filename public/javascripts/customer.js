@@ -30,6 +30,7 @@ var customer = new function() {
 	var binding = function(){
 
 		$('#customer form').on("submit", function(e){
+			$(this).find('input[type="submit"]').attr("disabled", "disabled");
 			e= e|| window.event;
 			e.preventDefault();
 			makebooking(this);
@@ -39,7 +40,7 @@ var customer = new function() {
 
 
 	var startSocket = function(){
-		var socket = io.connect('http://localhost:3000');
+		var socket = io.connect('http://localhost:5000');
     	socket.on('message', function (data) {
 	        console.log(data);
 	        if(data.message.destination=="BOOKING_"+bookingid){

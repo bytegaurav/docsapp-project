@@ -297,6 +297,58 @@ var DBManager = function(){
 
 	}
 
+	this.getDashboardData = function(callback){
+
+		query = "select * from booking order by bookingid DESC";
+ 
+
+		pool.getConnection(function(err, connection){
+			if(err){
+				connection.release();
+				callback({});
+				return;
+			}
+
+			connection.query(query, function(queryerr, rows, fields){
+				connection.release();
+
+				if(queryerr){
+					
+					callback({});
+					return;
+				}
+
+				var trips = new Object();
+				for(var i=0; i<rows.length; i++){
+
+					trips[rows[i].bookingid]= {
+						bookingid: rows[i].bookingid,
+						status: rows[i].status,
+						userid: rows[i].customerid, 
+						driverid: rows[i].driverid,
+						requesttime: rows[i].requesttime,
+						starttime: rows[i].starttime,
+						endtime: rows[i].endtime,
+						
+
+					}
+ 
+
+				}
+				callback(trips);
+
+
+
+				return;
+
+
+			});
+
+
+		});
+
+
+	}
 	
 
 	

@@ -139,6 +139,14 @@ router.get("/trips/:status/:driverid?", function(req,res, next){
 });
 
 
+router.get("/dashboarddata", function(req,res, next){
+	db.getDashboardData(function(data){
+
+		res.json(data);
+	});
+
+});
+
 
 router.get("/sendmessage", function(req,res,next){
 

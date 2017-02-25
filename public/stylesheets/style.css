@@ -38,6 +38,9 @@ a {
 .w50{
 	width: 50%;
 }
+.w20{
+	width: 20%;
+}
 
 
 .header{
@@ -157,4 +160,7 @@ padding:10px;
 }
 .waiting, .done{
 	display: none;
+}
+.tablerow{
+	padding: 20px;
 }

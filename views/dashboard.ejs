@@ -2,8 +2,146 @@
 <html>
 <head>
 	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
 
+	<!-- page wrapper starts -->
+<div class="wrapper">
+
+	<!-- headerstarts -->
+	<div class="header">
+		<h1>Dashboard</h1>
+		<a href="#" class="btn refresh">Refresh</a>
+		
+		<div class="clear"></div>
+	</div>
+
+	<!-- Header ends -->
+
+	<div class="row" id="driverstatus">
+
+		<div class="row head">
+			<div class="col w20">
+				Request Id 
+
+			</div>
+			<div class="col w20">
+				Customer Id
+			</div>
+			<div class="col w20">
+				Time Elapsed 
+			</div>
+			<div class="col w20">
+				Status 
+			</div>
+			<div class="col w20">
+				Driver
+			</div>
+
+
+
+			<div class="clear"></div>
+
+		</div>
+		<div class="row body">
+			
+		</div>
+
+
+		
+
+	</div>
+</div>
+<script type="text/template" id="tmpl">
+<div class="row tablerow">
+		<div class="col w20">
+				{{bookingid}}
+
+			</div>
+			<div class="col w20">
+				{{userid}}
+			</div>
+			<div class="col w20">
+				Wait Time : {{waittime}}<br>
+				Trip Time : {{triptime}}
+			</div>
+			<div class="col w20">
+				{{status}} 
+			</div>
+			<div class="col w20">
+				{{driverid}}
+			</div>
+			</div>
+
+</script>
+
+
+
+<script type="text/javascript" src="/javascripts/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+	var Dashboard = new function () {
+		
+		var loadDashboard = function(){
+
+
+			$.get('/api/dashboarddata', function(data){
+
+				var tmpl = $('#tmpl').html();
+				html="";
+				for(var i in data){
+					var cpy = tmpl;
+
+					for(var key in data[i]){
+						cpy = cpy.replace(new RegExp("{{"+key+"}}", "g"), data[i][key]);
+
+					}				
+					waittime = Math.abs(data[i].requesttime- data[i].starttime);
+					triptime = Math.abs(data[i].endtime- data[i].starttime);
+
+					waittime = Math.floor(waittime/1000);
+					triptime = Math.floor(	triptime/1000);
+					var waitmin =0;
+					if(waittime>60){
+						waitmin= Math.floor(waittime/60);
+						waittime =waitmin+"mins "+waittime%60+" sec";	
+
+					}else{
+						waittime+= " sec";
+					}
+					var tripmin = 0;
+					if(triptime>60){
+						waitmin= Math.floor(triptime/60);
+						triptime =waitmin+"mins "+triptime%60+" sec";	
+
+					}else{
+						triptime+=" sec";
+					}
+
+				cpy = cpy.replace(new RegExp("{{waittime}}", "g"), waittime);
+
+
+				cpy = cpy.replace(new RegExp("{{triptime}}", "g"), triptime);
+				
+				html+=cpy;
+
+
+				}
+				$('.body').html(html);	
+
+
+			});
+
+		}
+
+
+		this.init = function(){
+			loadDashboard();
+			$('.refresh').on("click", loadDashboard);
+		}
+
+	}
+	Dashboard.init();
+</script>
 </body>
 </html>

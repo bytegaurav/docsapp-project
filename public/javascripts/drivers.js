@@ -108,7 +108,7 @@ var drivers = new function () {
 			
 			
 
-			cpy  = cpy.replace(new RegExp("{{timeago}}", "g"), "In Progress");
+			cpy  = cpy.replace(new RegExp("{{timeago}}", "g"), "completed");
 			
 			html+= cpy;
 
@@ -128,24 +128,16 @@ var drivers = new function () {
 	}
 
 
+	var loadinprogress = function(){
 
-
-	this.init= function(){
-
-		awaitedtrips = new Object();
-		inprogress = new Object();
-		completed= new Object();
-
-		$.get("/api/trips/waiting", function(data){
-
-			awaitedtrips = data;
-			renderawaited();
-		});
 		$.get("/api/trips/ongoing/"+$('#driverid').val(), function(data){
 
 			inprogress = data;
 			renderinprogress();
 		});
+	}
+
+	var loadcomplted = function(){
 		$.get("/api/trips/completed/"+$('#driverid').val(), function(data){
 
 			completed = data;
@@ -153,11 +145,33 @@ var drivers = new function () {
 		});
 
 
+	}
+	var loadawaited = function(){
+$.get("/api/trips/waiting", function(data){
+
+			awaitedtrips = data;
+			renderawaited();
+		});
+
+	}
+
+	this.init= function(){
+
+		awaitedtrips = new Object();
+		inprogress = new Object();
+		completed= new Object();
+		loadawaited();
+		
+		loadinprogress();
+		loadcomplted();
+		
+
+
 
 
 		window.onload= function(){
 
-		var socket = io.connect('http://localhost:3000');
+		var socket = io.connect('http://localhost:5000');
     	socket.on('message', function (data) {
 	       
     		if(typeof(data)=="string"){
@@ -169,19 +183,15 @@ var drivers = new function () {
 
 
     		}else if(data.message.type=="booking-picked"){
+loadawaited();
+		
+				loadinprogress();
 
-				$.get("/api/trips/waiting", function(data){
-
-					awaitedtrips = data;
-					renderawaited();
-				});
 
     		}else if(data.message.type=="booking-completed"){
-    			$.get("/api/trips/completed/"+$('#driverid').val(), function(data){
-
-			completed = data;
-			rendercompleted();
-		});
+    			loadinprogress();
+				loadcomplted();
+		
 			}
 
 
